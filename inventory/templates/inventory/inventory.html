@@ -1,0 +1,10 @@
+{% extends 'inventory/base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block body %}
+
+<h2 class="sub-header">{{ title }}</h2>          
+		<div class="table-responsive">
+        {% render_table table %}
+		</div>
+{% endblock %}

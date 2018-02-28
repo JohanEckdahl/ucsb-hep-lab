@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>{% block title %}UCSB HEP Lab Inventory{% endblock %}</title>
+
+	{% load staticfiles %}
+
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'inventory/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+
+	 <script src="{% static 'inventory/js/main.js' %}"></script>
+	</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+		
+		<!-- Header -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+
+			<a class="navbar-brand" href="{% url 'inventory:index' %}">UCSB Physics</a>
+		</div>
+		
+
+		<!-- Items -->
+		<div class="collapse navbar-collapse" id=topNavBar>
+			<ul class="nav navbar-nav">
+				<li class="">
+					<a href="{% url 'inventory:module' %}">Modules</a>
+				</li>
+				<li class="">
+					<a href="{% url 'inventory:sensor' %}">Sensors</a>
+				</li>
+				<li class="">
+					<a href="{% url 'inventory:pcb' %}">Pcbs</a>
+				</li>
+				<li class="">
+					<a href="{% url 'inventory:plate' %}">Plates</a>
+				</li>
+			</ul>
+
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{% url 'inventory:index' %}">About</a></li>
+				   <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Links <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://www.physics.ucsb.edu">UCSB Physics</a></li>
+                <li><a href="https://www.hep.ucsb.edu">UCSB HEP Group</a></li>
+              </ul>
+            </li>
+			</ul>
+
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+</nav>
+<div class="w3-container w3-card-2 w3-white w3-margin-bottom  w3-margin-right  w3-margin-left" style="max-width:2000px">
+{% block body %}
+{% endblock%}
+</div>
+
+
+</body>
+</html>
