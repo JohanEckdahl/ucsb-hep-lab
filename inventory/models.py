@@ -1,7 +1,7 @@
 from django.db import models
 
 
-
+"""
 class Hardware(models.Model):
 
 	def get_location(self, component_id, name):
@@ -14,7 +14,7 @@ class Hardware(models.Model):
 	
 #	class Meta:
 #		abstract = True
-
+"""
 
 
 class Sensor(models.Model):
@@ -58,7 +58,7 @@ class Pcb(models.Model):
 		return self.__class__.__name__+' '+str(self.id)
 
 
-class Module(Hardware):
+class Module(models.Model):
 	thickness = models.FloatField(blank=True, null=True)
 	sensor = models.OneToOneField('Sensor', models.DO_NOTHING, blank=True, null=True, unique=True)
 	pcb = models.OneToOneField('Pcb', models.DO_NOTHING, blank=True, null=True, unique=True)
@@ -73,7 +73,7 @@ class Module(Hardware):
 	pcb_error_x = models.FloatField(blank=True, null=True)
 	pcb_error_y = models.FloatField(blank=True, null=True)
 	pcb_error_theta = models.FloatField(blank=True, null=True)
-	location = get_location(self, 1, 'Module')
+	#location = get_location(self, 1, 'Module')
 
 	def __str__(self):
 		return self.__class__.__name__+' '+str(self.id)
