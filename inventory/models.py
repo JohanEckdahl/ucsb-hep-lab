@@ -1,23 +1,51 @@
 from django.db import models
+from django.utils import timezone
 
-
-"""
+'''
 class Hardware(models.Model):
 
-	def get_location(self, component_id, name):
-		if name == 'Module':
-			a = Shipped_item.objects.filter(item_id=component_id, item_table_name=name)
-		else:
-			pass
-
-		return a
+	@property
+	def location(self):
+		item_table_name = 'pcb'
+		class_name = Pcb
+		item_id = self.id
+		if item_table_name != 'module':
+			object = class_name.objects.get(pk = item_id)
+			try:
+				name = '{}_id'.format(item_table_name)
+				object = Module.objects.get(**{name:object})
+				item_table_name = 'module'
+				item_id = object.id
+			except:
+				g=1
+			
+		a = Shipped_item.objects.filter(item_table_name = item_table_name, item_id = item_id).values_list('shipment_id', flat=True)
+		self._location = Shipment.objects.filter(pk__in = a).order_by('-date')[0].recipient
+		return self._location
 	
-#	class Meta:
-#		abstract = True
-"""
+	class Meta:
+		abstract= True
 
 
-class Sensor(models.Model):
+'''
+
+class Hardware(models.Model):
+	def image_links(self):
+		path= "{}/component_images/{}/{}/".format(settings.MEDIA_ROOT, self.table_name, self.id) 
+		try:
+			images = os.listdir(path)
+		except:
+			images = False
+		
+		return images
+		
+	
+	class Meta:
+		abstract= True
+
+
+class Sensor(Hardware):
+	table_name='sensor'
 	identifier = models.CharField(max_length=20, blank=True, null=True, unique=True)
 	type = models.CharField(max_length=20)
 	size = models.IntegerField()
@@ -27,10 +55,29 @@ class Sensor(models.Model):
 	def __str__(self):
 		return self.__class__.__name__+' '+str(self.id)
 	
-	def class_name(self):
-		return self.__class__.__name__
-	
+	@property
+	def location(self):
+		item_table_name = 'sensor'
+		class_name = Sensor
+		item_id = self.id
+		if item_table_name != 'module':
+			object = class_name.objects.get(pk = item_id)
+			try:
+				name = '{}_id'.format(item_table_name)
+				object = Module.objects.get(**{name:object})
+				item_table_name = 'module'
+				item_id = object.id
+			except:
+				g=1
+			
+		a = Shipped_item.objects.filter(item_table_name = item_table_name, item_id = item_id).values_list('shipment_id', flat=True)
+		self._location = Shipment.objects.filter(pk__in = a).order_by('-date')[0].recipient
+		return self._location
+
+
+
 class Plate(models.Model):
+	table_name = 'plate'
 	identifier = models.CharField(max_length=20, blank=True, null=True, unique=True)
 	material = models.CharField(max_length=20)
 	nom_thickness = models.FloatField(blank=True, null=True)
@@ -43,9 +90,28 @@ class Plate(models.Model):
 	def __str__(self):
 		return self.__class__.__name__+' '+str(self.id)
 	
+	@property
+	def location(self):
+		item_table_name = 'plate'
+		class_name = Plate
+		item_id = self.id
+		if item_table_name != 'module':
+			object = class_name.objects.get(pk = item_id)
+			try:
+				name = '{}_id'.format(item_table_name)
+				object = Module.objects.get(**{name:object})
+				item_table_name = 'module'
+				item_id = object.id
+			except:
+				g=1
+			
+		a = Shipped_item.objects.filter(item_table_name = item_table_name, item_id = item_id).values_list('shipment_id', flat=True)
+		self._location = Shipment.objects.filter(pk__in = a).order_by('-date')[0].recipient
+		return self._location
 
 	
 class Pcb(models.Model):
+	table_name = 'pcb'
 	identifier = models.CharField(max_length=20, blank=True, null=True, unique=True)
 	thickness = models.FloatField(blank=True, null=True)
 	flatness = models.FloatField(blank=True, null=True)
@@ -57,8 +123,28 @@ class Pcb(models.Model):
 	def __str__(self):
 		return self.__class__.__name__+' '+str(self.id)
 
+	@property
+	def location(self):
+		item_table_name = 'pcb'
+		class_name = Pcb
+		item_id = self.id
+		if item_table_name != 'module':
+			object = class_name.objects.get(pk = item_id)
+			try:
+				name = '{}_id'.format(item_table_name)
+				object = Module.objects.get(**{name:object})
+				item_table_name = 'module'
+				item_id = object.id
+			except:
+				g=1
+			
+		a = Shipped_item.objects.filter(item_table_name = item_table_name, item_id = item_id).values_list('shipment_id', flat=True)
+		self._location = Shipment.objects.filter(pk__in = a).order_by('-date')[0].recipient
+		return self._location
+
 
 class Module(models.Model):
+	table_name = 'module'
 	thickness = models.FloatField(blank=True, null=True)
 	sensor = models.OneToOneField('Sensor', models.DO_NOTHING, blank=True, null=True, unique=True)
 	pcb = models.OneToOneField('Pcb', models.DO_NOTHING, blank=True, null=True, unique=True)
@@ -73,10 +159,31 @@ class Module(models.Model):
 	pcb_error_x = models.FloatField(blank=True, null=True)
 	pcb_error_y = models.FloatField(blank=True, null=True)
 	pcb_error_theta = models.FloatField(blank=True, null=True)
-	#location = get_location(self, 1, 'Module')
+	
+
 
 	def __str__(self):
 		return self.__class__.__name__+' '+str(self.id)
+
+	@property
+	def location(self):
+		item_table_name = 'module'
+		class_name = Module
+		item_id = self.id
+		if item_table_name != 'module':
+			object = class_name.objects.get(pk = item_id)
+			try:
+				name = '{}_id'.format(item_table_name)
+				object = Module.objects.get(**{name:object})
+				item_table_name = 'module'
+				item_id = object.id
+			except:
+				g=1
+			
+		a = Shipped_item.objects.filter(item_table_name = item_table_name, item_id = item_id).values_list('shipment_id', flat=True)
+		self._location = Shipment.objects.filter(pk__in = a).order_by('-date')[0].recipient
+		return self._location
+	
 
 
 class Shipment(models.Model):
@@ -85,17 +192,21 @@ class Shipment(models.Model):
 	date = models.DateField(blank=True, null=True)
 
 class Shipped_item(models.Model):
-	tables = (('Module', 'Module'),
-			('Sensor', 'Sensor'),
-			('Pcb', 'PCB'),
-			('Plate', 'Plates'),
+	tables = (('module', 'module'),
+			('sensor', 'sensor'),
+			('pcb', 'pcb'),
+			('plate', 'plate'),
 			)
 	shipment= models.ForeignKey('Shipment', models.DO_NOTHING, blank=False, null=False)
 	item_table_name = models.CharField(max_length=20, choices=tables, blank = False)
 	item_id = models.IntegerField(blank=False)
 
-
-
-
+class Comment(models.Model):
+	username = models.CharField(max_length=50, blank=False)
+	datetime = models.DateTimeField(default=timezone.now, blank=False)	
+	body = models.TextField(max_length=1000, blank=False)
+	table = models.CharField(max_length=20, blank=False)
+	table_id = models.IntegerField(blank=False)
+	
 
 

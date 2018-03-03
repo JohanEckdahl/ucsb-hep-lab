@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sensor, Module, Plate, Pcb, Plate, Shipment, Shipped_item
+from .models import *
 
 class SensorAdmin(admin.ModelAdmin):
 	list_display = ('id', 'identifier', 'type')
@@ -27,6 +27,10 @@ class Shipped_itemAdmin(admin.ModelAdmin):
 	list_display = ('id', 'shipment', 'item_table_name', 'item_id')
 	list_filter = ['id',]
 
+class CommentAdmin(admin.ModelAdmin):
+	list_display = ('id', 'table', 'table_id')
+	list_filter = ['id',]
+
 
 
 
@@ -37,3 +41,6 @@ admin.site.register(Pcb, PcbAdmin)
 admin.site.register(Plate, PlateAdmin)
 admin.site.register(Shipment, ShipmentAdmin)
 admin.site.register(Shipped_item, Shipped_itemAdmin)
+admin.site.register(Comment, CommentAdmin)
+
+
