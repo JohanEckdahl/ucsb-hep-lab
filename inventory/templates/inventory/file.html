@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+
+
+{% if files %}
+
+	{% for file in files %}
+	{{file}}</br>
+	{% endfor %}
+{% else %}
+	Sorry no files :(
+{% endif %}
