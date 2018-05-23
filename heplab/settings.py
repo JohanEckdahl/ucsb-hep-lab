@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f1n-hc1#q==u&q#=+_1&q61atqaah!i95!_j+$u30q3yvbv!&8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,6 +80,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    #'wiki': {
+    #    'ENGINE': 'django.db.backends.mysql",
+    #    'NAME': 'hgcal_wiki',
+    #}
 }
 
 
@@ -127,3 +131,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+ADMIN_MEDIA_PREFIX = '/static/admin/'
