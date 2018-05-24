@@ -5,7 +5,7 @@
 {% if files %}
 
 	{% for file in files %}
-	{{file}}</br>
+	<a href="/{{path}}{{file}}">{{file}}</a></br>
 	{% endfor %}
 {% else %}
 	Sorry no files :(

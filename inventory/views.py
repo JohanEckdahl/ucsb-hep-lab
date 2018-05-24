@@ -10,20 +10,26 @@ from .tables import *
 
 
 def image(request, folder, idn):
-	path= "{}/component_images/{}/{}/".format(settings.MEDIA_ROOT, folder, idn) 
+	path = "component_images/{}/{}/".format(folder, idn) 
+	os_path = "{}{}".format(settings.MEDIA_ROOT, path)
+	web_path = "files/media/{}".format(path)
 	try:
-		images = os.listdir(path)
+		images = os.listdir(os_path)
 	except:
 		images = False
-	return render(request, 'inventory/image.html', {'images' : images, 'path': path})
+	return render(request, 'inventory/image.html', {'images' : images, 'path': web_path})
+
+
 
 def file(request, folder, idn):
-	path= "{}/files/{}/{}/".format(settings.MEDIA_ROOT, folder, idn) 
+	path= "files/{}/{}/".format(folder, idn) 
+	os_path = "{}{}".format(settings.MEDIA_ROOT, path)
+	web_path = "files/media/{}".format(path)
 	try:
-		files = os.listdir(path)
+		files = os.listdir(os_path)
 	except:
 		files = False
-	return render(request, 'inventory/file.html', {'files' : files, 'path': path})
+	return render(request, 'inventory/file.html', {'files' : files, 'path': web_path})
 	
 def comment(request, table_name, idn):
 	comments = Comment.objects.filter(table=table_name, table_id = idn).order_by('-datetime')

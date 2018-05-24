@@ -3,7 +3,7 @@ from .models import Sensor, Plate, Pcb, Module
 
 
 
-comment_button = '<a href="{{record.table_name}}/{{record.id}}/comment" class="btn btn-default glyphicon glyphicon-comment"></a>'
+comment_button = '<a href="{{record.table_name}}/{{record.id}}/comment" class="btn btn-default glyphicon glyphicon-comment">&nbsp{{record.comment_count}}</a>'
 image_button = '<a href="{{record.table_name}}/{{record.id}}/image" class="btn btn-default glyphicon glyphicon-picture"></a>'
 file_button = '<a href="{{record.table_name}}/{{record.id}}/file" class="btn btn-default glyphicon glyphicon-folder-open"></a>'
 buttons = '{}{}{}'.format(comment_button, image_button, file_button)

@@ -23,6 +23,11 @@ class Hardware(models.Model):
 					item_id = item_id).values_list('shipment_id', flat=True)
 		location = Shipment.objects.filter(pk__in = shipments).order_by('-date')[0].recipient
 		return location		
+
+	def comment_count(self):
+		return len(Comment.objects.filter(table_id = self.id, table = self.table_name))
+	
+
 	
 	class Meta:
 		abstract= True
